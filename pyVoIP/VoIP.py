@@ -440,7 +440,10 @@ class VoIPPhone():
     for thread in self.threads:
       if not thread.is_alive():
         call_id = self.threadLookup[thread]
-        del self.calls[call_id]
+        try:
+          del self.calls[call_id]
+        except KeyError:
+          pass
         del self.threadLookup[thread]
         to_delete.append(thread)
     for thread in to_delete:
